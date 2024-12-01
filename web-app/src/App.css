@@ -1,0 +1,45 @@
+#root {
+  padding: 0;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.dialog-container {
+  max-height: 80vh;
+  min-height: 80vh;
+  overflow-y: scroll;
+}
+
+.dialog-modal {
+  margin: auto;
+  overflow-y: auto;
+  padding: 0;
+  position: fixed;
+  top: 5%;
+  bottom: 5%;
+  width: 75%;
+  z-index: 1100;
+}
+
+.hover {
+  cursor: pointer
+}
+
+.modal-background {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
+}

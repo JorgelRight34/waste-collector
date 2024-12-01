@@ -1,0 +1,29 @@
+import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Home from './pages/Home'
+import BinsRoute from './pages/BinsRoute'
+import History from './pages/History'
+import Login from './pages/Login'
+import BinsStatus from './pages/BinsStatus'
+import Dashboard from './pages/Dashboard'
+import ProtectedRoute from './components/ProtectedRoute'
+
+function App() {
+
+  return (
+    <>
+      <Router>  
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path='/status' element={<ProtectedRoute><BinsStatus /></ProtectedRoute>} />
+          <Route path='/route' element={<ProtectedRoute><BinsRoute /></ProtectedRoute>} />
+          <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
+          <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        </Routes>
+      </Router>
+    </>
+  )
+}
+
+export default App
