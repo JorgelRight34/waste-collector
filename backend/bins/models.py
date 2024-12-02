@@ -12,15 +12,9 @@ class Bin(models.Model):
 
     @classmethod
     def create_bin(self, location, street):
-        try:
-            street = Street.objects.get(street=street)
-        except Street.DoesNotExist:
-            street = Street(street=street)
-            street.save()
-
+        street = Street.objects.get_or_create(street=street)
         bin = Bin(location=location, street=street)
         bin.save()
-
         return bin
 
     def serialize(self):
@@ -34,6 +28,7 @@ class Bin(models.Model):
 
 class Street(models.Model):
     street = models.CharField(max_length=255)
+
 
 class Route(models.Model):
     bins = models.JSONField()

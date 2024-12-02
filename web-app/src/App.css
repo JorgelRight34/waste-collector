@@ -43,3 +43,16 @@ a:hover {
   -webkit-overflow-scrolling: touch;
   overflow: auto;
 }
+
+::-webkit-scrollbar {
+  width: 0.33em;
+}
+
+::-webkit-scrollbar-track {
+  background: #D3D3D3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0d4670;
+  border-radius: 100vw;
+}

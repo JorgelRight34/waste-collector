@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 import json
 
-from .models import Bin, Route
+from .models import Bin, Route, Street
 
 # Create your views here.
 @api_view(('GET', 'POST', 'PUT', 'DELETE'))
@@ -24,6 +24,11 @@ def bin(request, id=None):
         bin = Bin.objects.get(id=data["id"])
 
         for key in data.keys():
+            if key == "street":
+                print(data["street"])
+                street = Street.objects.get_or_create(street=data["street"])
+                setattr(bin, key, street[0])
+                continue
             setattr(bin, key, data[key])
         bin.save()
 

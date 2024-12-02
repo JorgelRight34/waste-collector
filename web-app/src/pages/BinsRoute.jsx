@@ -23,7 +23,7 @@ const BinsRoute = ({ }) => {
                     />
                 </div>
                 <div className="col-lg-3 p-3">
-                    <div className="bg-white rounded border p-3">
+                    <div className="bg-white rounded border p-3 shadow-sm">
                         <div className="mb-3">
                             <h3>Opciones</h3>
                         </div>
@@ -32,14 +32,24 @@ const BinsRoute = ({ }) => {
                                 className="btn btn-outline-primary mb-2" 
                                 reload={reload}
                             >
-                                Simular
+                                <div className="d-flex align-items-center justify-content-center">
+                                    <span className="material-symbols-outlined me-1">
+                                        play_arrow
+                                    </span>
+                                    Simular
+                                </div>
                             </SimulateBtn>
                             <TakeRouteBtn 
                                 className="btn btn-success"
                                 startingPoint={center}
                                 bins={bins}
                             >
-                                Hacer Ruta
+                               <div className="d-flex align-items-center justify-content-center">
+                                    <span className="material-symbols-outlined me-1">
+                                        signpost
+                                    </span>
+                                    Tomar Ruta
+                                </div>
                             </TakeRouteBtn>
                         </div>
                         <div className="mb-3">

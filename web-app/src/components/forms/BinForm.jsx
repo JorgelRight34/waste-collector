@@ -1,41 +1,6 @@
-import { useState } from "react"
-import api from "../../api";
 import { generateRandomLocation } from "../../utils/utility-functions";
 
-const BinForm = ({ setBins }) => {
-    const [formData, setFormData] = useState({
-        lat: '',
-        lng: '',
-        street: ''
-    })
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData(prev => ({...prev, [name]: value}));
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        let response;
-        try {
-            response = await api.post('bins/', {
-                location: {
-                    lat: formData.lat,
-                    lng: formData.lng
-                },
-                street: formData.street
-            }, {
-                headers: {
-                    'Content-Type' : 'application/json'
-                }
-            });
-            setBins(prev => [...prev, response.data])
-        } catch (err) {
-            console.log(err)
-            return
-        }
-    }
-
+const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
     const handleGenerateRandomLocation = () => {
         const {lat, lng} = generateRandomLocation();
         setFormData(prev => ({...prev, lat: lat, lng: lng}));
@@ -72,7 +37,7 @@ const BinForm = ({ setBins }) => {
                 <label for="street" className="form-label"> 
                     Calle
                 </label>
-                <input name="street" required/>
+                <input name="street" onChange={(e) => handleChange(e)} value={formData.street} required/>
             </div>
             <div>
                 <button type="submit" className="btn btn-primary">
