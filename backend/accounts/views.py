@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+
 import json
 
 from .models import User
@@ -22,7 +24,7 @@ def register(request):
         user = User.objects.create_user(username=username, password=password)
         user.save()
     except IntegrityError:
-        return HttpResponse("Integrity error", status=405)
+        return HttpResponse("Integrity error", status=401)
     
     refresh_token = RefreshToken.for_user(user)
 
@@ -34,7 +36,7 @@ def register(request):
 
 @api_view(('POST',))
 @permission_classes([AllowAny])
-def login(request):
+def login_view(request):
     data = json.loads(request.body)
     username = data.get("username")
     password = data.get("password")
@@ -52,4 +54,13 @@ def login(request):
             }
         })
     else:
-        return HttpResponse(status=405)
+        return HttpResponse(status=401)
+
+
+@api_view(('GET',))
+@permission_classes([IsAuthenticated])
+def user_info(request):
+    user = request.user
+    return Response({
+        'username': user.username,
+    })

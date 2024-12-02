@@ -1,32 +1,41 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import Navbar from "../components/Navbar"
 import api from "../api"
 import { useNavigate } from "react-router-dom"
 
 const Login = ({ }) => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const formRef = useRef(null)
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    })
 
-    const login = async () => {
-        
-            console.log("username", username)
-            console.log("password", password);
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        setFormData(prev => ({...prev, [name] : value}))
+    }
+
+    const login = async (event) => {
+        event.preventDefault();
+        try {
             const response = await api.post('/accounts/login/', {
-                username: "jorge3",
-                password: "jp012003",
+                username: formData.username,
+                password: formData.password,
             }, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
             })
-            
-            console.log("setting")
             localStorage.setItem('accessToken', response.data.access_token);
             localStorage.setItem('refreshToken', response.data.access_token);
             navigate('/');
-    
+        } catch (err) {
+            console.log(err);
+        }
     }
+
+
 
     return (
         <>
@@ -37,36 +46,40 @@ const Login = ({ }) => {
                         <div className="mb-3">
                             <h3>Iniciar Sesión</h3>
                         </div>
-                        <div className="mb-2">
-                            <div className="form-group">
-                                <label className="form-label" id="username">
-                                    Username
-                                </label>
-                                <input 
-                                    className="form-control" 
-                                    value={username} 
-                                    onChange={(e) => setUsername(e.target.value)} 
-                                />
+                        <form ref={formRef} onSubmit={(e) => login(e)}>
+                            <div className="mb-2">
+                                <div className="form-group">
+                                    <label className="form-label" id="username">
+                                        Username
+                                    </label>
+                                    <input 
+                                        className="form-control" 
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={(e) => handleChange(e)}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="mb-2">
-                            <div className="form-group">
-                                <label className="form-label" id="username">
-                                    Contraseña
-                                </label>
-                                <input 
-                                    className="form-control" 
-                                    type="password" 
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
+                            <div className="mb-2">
+                                <div className="form-group">
+                                    <label className="form-label" id="username">
+                                        Contraseña
+                                    </label>
+                                    <input 
+                                        className="form-control" 
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={(e) => handleChange(e)}
+                                        type="password" 
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <button className="btn btn-primary" onClick={login}>
-                                Enviar
-                            </button>
-                        </div>
+                            <div>
+                                <button type="submit" className="btn btn-primary" onClick={login}>
+                                    Enviar
+                                </button>
+                            </div>
+                        </form>                     
                     </div>
                 </div>
             </div>

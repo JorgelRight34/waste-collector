@@ -1,3 +1,4 @@
+
 const Dialog = ({ show, onHide, title, body, height="75vh", width="75vh"}) => {
     return (
         <div className={`modal-background ${show ? '' : 'd-none'} `}>

@@ -5,6 +5,10 @@ import LineChart from "../components/LineChart"
 import Navbar from "../components/Navbar"
 import { testData, testRoutesData } from "../utils/constants"
 import Widget from "../components/Widget"
+import BinForm from "../components/forms/BinForm"
+import api from "../api"
+import BinsDisplay from "../components/dashboard/BinsDisplay"
+import RoutesDisplay from "../components/dashboard/RoutesDisplay"
 
 const Dashboard = ({ }) => {
     const [isDialogShowing, setIsDialogShowing] = useState(false);
@@ -15,19 +19,10 @@ const Dashboard = ({ }) => {
             {/* First Row */}
             <div className="row p-lg-3">
                 <div className="col-lg-6 p-lg-3">
-                    <Widget title="Zafacones" options={true} height="70vh">
-                        {testData.map(bin => <Bin key={bin.id} className="mb-2" bin={bin} />)}
-                    </Widget>
+                    <BinsDisplay />
                 </div>
                 <div className="col-lg-6 p-lg-3">
-                    <div className="bg-white p-3 border rounded">
-                        <div className="mb-3">
-                            <h3>Historial de Rutas</h3>
-                        </div>
-                        <div className="p-3" style={{height: '70vh', overflow: 'auto'}}>
-                            {testRoutesData.map((route, key) => <CollectionRoute key={key} route={route} className={"mb-2"} />)}
-                        </div>
-                    </div>
+                    <RoutesDisplay />
                 </div>
             </div>
             {/* Second Row */}
