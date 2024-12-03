@@ -31,10 +31,13 @@ class Street(models.Model):
 
 
 class Route(models.Model):
-    bins = models.JSONField()
+    bins = models.ManyToManyField(Bin, related_name='routes', symmetrical=False)
     starting_point = models.JSONField()
+    instructions = models.JSONField()
     duration = models.IntegerField()
+    distance = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
+    day_of_the_week = models.IntegerField()
 
 
     def __str__(self):
@@ -51,6 +54,10 @@ class Route(models.Model):
     def serialize(self):
         return {
             'id': self.id,
-            'bins': self.bins,
-            'starting_point': self.starting_point
+            'bins': [bin.serialize() for bin in self.bins.all()],
+            'startingPoint': self.starting_point,
+            'instructions': self.instructions,
+            'duration': self.duration,
+            'distance': self.distance,
+            'date': self.date.strftime("%d/%m/%Y"),
         }

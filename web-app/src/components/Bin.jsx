@@ -4,7 +4,7 @@ import trashBin from "../assets/trashBin.png"
 import Dialog from "./Dialog"
 import BinEditForm from "./forms/BinEditForm";
 
-const Bin = ({ bin, setBins, className }) => {
+const Bin = ({ bin, setBins, className, image=true }) => {
     const [isDialogShowing, setIsDialogShowing] = useState(false);
 
     const hideDialog = () => {
@@ -23,26 +23,30 @@ const Bin = ({ bin, setBins, className }) => {
     return (
         <>
             <div className={`row border rounded ${className}`}>
-                <div className="col-3">
-                    <img className="img-fluid" src={trashBin} />
-                </div>
-                <div className="col-9 p-3">
-                    <div className="d-flex mb-3">
-                        <h4>Zafacón {bin.id}</h4>
-                        <div className="ms-auto d-flex align-items-center">
-                            <span className="material-symbols-outlined hover me-3" onClick={deleteBin}>
-                                delete
-                            </span>
-                            <span class="material-symbols-outlined hover" onClick={showDialog}>
-                                edit
-                            </span>
-                        </div>
+                {image ? (
+                    <div className="col-3">
+                        <img className="img-fluid" src={trashBin} />
                     </div>
-                    <div className="mb-2">
+                ): ''}
+                <div className="col">
+                    <div className="d-flex align-items-center mb-3 border-bottom p-3">
+                        <h5 className="mb-0">Zafacón {bin.id}</h5>
+                        {setBins ? (
+                            <div className="ms-auto d-flex align-items-center">
+                                <span className="material-symbols-outlined hover me-3" onClick={deleteBin}>
+                                    delete
+                                </span>
+                                <span class="material-symbols-outlined hover" onClick={showDialog}>
+                                    edit
+                                </span>
+                            </div>
+                        ): ''}
+                    </div>
+                    <div className="mb-2 px-3">
                         {bin.street}
                     </div>
-                    <div className="mb-2">
-                        Llenado: {bin.fillLevel * 100}%
+                    <div className="mb-2 px-3">
+                        Llenado: {Math.round(bin.fillLevel * 100, 2)}%
                     </div>
                 </div>
             </div>

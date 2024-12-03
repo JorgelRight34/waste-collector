@@ -1,3 +1,5 @@
+import { Slide } from "react-toastify";
+
 export const historyTestData = [
     {
         day: 'hoy',
@@ -165,3 +167,15 @@ export const testRoutesData = [
         hour: "07:45 AM"
     }
 ];
+
+export const toastStyle = {
+    position: "top-center",
+    autoClose: 2500,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Slide
+}

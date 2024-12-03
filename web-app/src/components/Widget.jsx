@@ -25,8 +25,8 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
 
     return (
         <>
-            <div className="bg-white p-3 border rounded">
-                <div className="d-flex mb-3">
+            <div className="bg-white border rounded shadow-sm">
+                <div className="d-flex p-3 border-bottom mb-3">
                     <h3>{title}</h3>
                     <div 
                         className={`d-flex align-items-center ms-auto ${options ? '' : 'd-none'}`}
@@ -38,7 +38,7 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
                 </div>
                 <div 
                     ref={itemsContainerRef} 
-                    className="p-3" 
+                    className="p-3 px-5" 
                     style={{height: height, overflow: 'auto'}}
                     onScroll={handleScroll}
                 >
@@ -49,7 +49,7 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
                 show={isDialogShowing}
                 onHide={hideDialog}
                 body={dialogBody}
-                title="Registrar Zafacón"
+                title="Nuevo Registro"
                 height="50vh"
             />
         </>

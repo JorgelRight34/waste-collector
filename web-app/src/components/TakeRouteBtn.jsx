@@ -1,11 +1,20 @@
 import api from "../api"
 
-const TakeRouteBtn = ({ className, bins, startingPoint, children }) => {
+const TakeRouteBtn = ({ className, bins, startingPoint, children, routes }) => {
     const handleClick = async () => {
+        let today = new Date;
+        today = Date.getDay();
+
         const response = await api.post('/routes/', {
             bins: bins,
-            startingPoint: startingPoint,
-            duration: Date.now()
+            duration: routes?.summary?.totalTime,
+            distance: routes?.summary?.totalDistance,
+            startingPoint: {
+                name: routes.name,
+                coordinates: startingPoint
+            },
+            instructions: routes?.instructions,
+            dayOfTheWeek: today
         })
     }
 

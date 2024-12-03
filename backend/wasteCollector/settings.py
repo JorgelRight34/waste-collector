@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['10.0.0.16', '*'] # Allow internal network devices as hosts
 INSTALLED_APPS = [
     'accounts',
     'bins',
+    'stats',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

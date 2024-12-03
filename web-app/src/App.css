@@ -8,6 +8,11 @@ a:hover {
   cursor: pointer;
 }
 
+.bin-popup {
+  height: 500px;
+  width: 500px;
+}
+
 .dialog-container {
   max-height: 80vh;
   min-height: 80vh;
@@ -27,6 +32,10 @@ a:hover {
 
 .hover {
   cursor: pointer
+}
+
+.leaflet-routing-container {
+  display: none;
 }
 
 .modal-background {

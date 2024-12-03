@@ -76,7 +76,16 @@ def route(request, id=None):
     if request.method == "POST":
         data = json.loads(request.body)
         try:
-            route = Route.create_route(bins=data["bins"], starting_point=data["startingPoint"])
+            bins = [Bin.objects.get(id=bin["id"]) for bin in data["bins"]]
+            route = Route.objects.create( 
+                instructions=data["instructions"], 
+                starting_point=data["startingPoint"],
+                duration=data["duration"],
+                distance=data["distance"],
+                day_of_the_week=data["dayOfTheWeek"]
+            )
+            route.bins.set(bins)
+            route.save()
             return Response(route.serialize())
         except ValueError:
             return HttpResponse("An error happened", status=401)

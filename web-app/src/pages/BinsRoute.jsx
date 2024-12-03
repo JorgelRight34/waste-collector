@@ -1,30 +1,43 @@
 import MapComponent from "../components/MapComponent";
 import Navbar from "../components/Navbar"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TakeRouteBtn from "../components/TakeRouteBtn";
 import SimulateBtn from "../components/SimulateBtn";
 import useFetchPage from "../hooks/useFetchPage";
+import RouteInfo from "../components/RouteInfo";
 
 
 const BinsRoute = ({ }) => {
     const [center, setCenter] = useState([18.456, -69.9475])
-    const [bins, , reload] = useFetchPage('/get-route-bins/');
+    const [bins, setBins , reload] = useFetchPage('/get-route-bins/');
+    const [routes, setRoutes] = useState(null);
+
+    useEffect(() => {
+        console.log(routes)
+    }, [routes])
+
     
     return (
         <div className="bg-light">
             <Navbar />
             <div className="row p-3">
-                <div className="col-lg-9 p-3">
+                <div className="col-lg-8 p-3">
                     {/* {lat: 18.456, lng: -69.9500, label: '1'}, {lat: 18.4500, lng: -69.9400, label: '2'} */}
                     {/* bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id})) */}
                     <MapComponent 
                         center={center} 
-                        waypoints={[...bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id})), {lat: center[0], lng: center[1], label: 'Comienzo'}]} 
+                        waypoints={[
+                            {lat: center[0], lng: center[1], label: 'Comienzo'},
+                            ...bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id, ...bin})), 
+                        ]}
+                        setBins={setBins} 
+                        routes={routes}
+                        setRoutes={setRoutes}
                     />
                 </div>
-                <div className="col-lg-3 p-3">
+                <div className="col-lg-4 p-3">
                     <div className="bg-white rounded border p-3 shadow-sm">
-                        <div className="mb-3">
+                        <div className="mb-3 d-none">
                             <h3>Opciones</h3>
                         </div>
                         <div className="d-flex flex-column mb-3">
@@ -43,6 +56,7 @@ const BinsRoute = ({ }) => {
                                 className="btn btn-success"
                                 startingPoint={center}
                                 bins={bins}
+                                routes={routes}
                             >
                                <div className="d-flex align-items-center justify-content-center">
                                     <span className="material-symbols-outlined me-1">
@@ -53,9 +67,10 @@ const BinsRoute = ({ }) => {
                             </TakeRouteBtn>
                         </div>
                         <div className="mb-3">
-                            <ul>
-                                <li>1ero aqui</li>
-                            </ul>
+                            <h5 className="mb-3">{routes?.name}</h5>
+                            <div className="px-2" style={{ maxHeight: '65vh', overflow: 'auto'}}>
+                                <RouteInfo routes={routes} />
+                            </div>
                         </div>
                     </div>
                 </div>
