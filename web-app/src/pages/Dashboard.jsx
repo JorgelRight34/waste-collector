@@ -13,30 +13,30 @@ const Dashboard = ({ }) => {
             <Navbar />
             {/* First Row */}
             <div className="row p-lg-3">
-                <div className="col-lg-6 p-lg-3">
+                <div className="col-lg-4 p-lg-3">
                     <BinsDisplay />
                 </div>
-                <div className="col-lg-6 p-lg-3">
+                <div className="col-lg-4 p-lg-3">
                     <RoutesDisplay />
                 </div>
-            </div>
-            {/* Second Row */}
-            <div className="row p-lg-3">
-                {/* Tendecy of fullness by zone */}
-                <div className="col-lg-6 p-lg-3">
-                    <DashboardChart 
-                        endpoint="stats/routes/" 
-                        title="Rutas por Día" 
-                        label="Rutas por Día"
-                    />
-                </div>
-                {/* Routes per Day */}
-                <div className="col-lg-6 p-lg-3">
-                    <DashboardChart
-                        endpoint="stats/bins/"
-                        title="Nivel de Llenado por Día"
-                        label="Nivel de Llenado por Día"
-                    />
+                <div 
+                    className="col-lg-4 p-lg-3"
+                >          
+                    <div style={{ maxHeight: '81vh', overflowY: 'auto'}}>
+                        {/* Tendecy of fillness by zone */}
+                        <DashboardChart 
+                            className="mb-2"
+                            endpoint="stats/routes/" 
+                            title="Rutas por Día" 
+                            label="Rutas por Día"
+                        />
+                        {/* Routes per Day */}
+                        <DashboardChart
+                            endpoint="stats/bins/"
+                            title="Nivel de Llenado por Día"
+                            label="Nivel de Llenado por Día"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

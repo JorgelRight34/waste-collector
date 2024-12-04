@@ -65,21 +65,23 @@ const CollectionRoute = ({ route, className, height }) => {
                         <span className="material-symbols-outlined fs-6 me-1">
                             schedule
                         </span>
-                        {route.duration}ms
+                        {route.duration}s
                     </div>
                     <div className="d-flex align-items-center me-3">
                         <span className="material-symbols-outlined fs-6 me-1">
                             calendar_month
                         </span>
-                    {route.date}
+                        {route.date}
                     </div>
                     <div className="d-flex align-items-center me-3">
                         <span className="material-symbols-outlined fs-6 me-1">
                             recycling
                         </span>
-                    {route?.instructions?.length}
+                        {route?.instructions?.length}
                     </div>
-                    <button className="ms-auto btn btn-outline-primary" onClick={handleClick}>
+                </div>
+                <div className="p-2 d-flex justify-content-end border-top">
+                    <button className="btn btn-outline-primary" onClick={handleClick}>
                         Más Información
                     </button>
                 </div>

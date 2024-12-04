@@ -65,3 +65,12 @@ a:hover {
   background: #0d4670;
   border-radius: 100vw;
 }
+
+@media (max-width: 500px) {
+  .route-options {
+    z-index: 9999 !important;
+    position: absolute !important;
+    top: 80% !important;
+    max-width: 100%;
+  }
+}

@@ -1,5 +1,5 @@
 export const toTitleCase = (string) => {
-    return string.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+    return string?.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }
 
 export const generateRandomLocation = () => {

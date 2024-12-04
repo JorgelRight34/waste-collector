@@ -3,9 +3,10 @@ import { jwtDecode } from "jwt-decode";
 
 const DEV = 'http://127.0.0.1:8000/'
 const DEV1 = `http://10.0.0.17:8000/`
+const DEV3 = 'http://192.168.4.122:8000/'
 
 const api = axios.create({
-    baseURL: DEV
+    baseURL: DEV3
 });
 
 api.interceptors.request.use(

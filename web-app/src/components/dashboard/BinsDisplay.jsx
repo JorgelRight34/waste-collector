@@ -14,7 +14,14 @@ const BinsDisplay = ({ }) => {
             dialogBody={<BinCreateForm setBins={setBins} />}
             setPage={setPage}
         >
-            {bins?.map((bin, key) => <Bin key={key} className="mb-2" setBins={setBins} bin={bin} />)}
+            {bins?.map((bin, key) => (
+                <Bin 
+                    key={key} 
+                    className="mb-2" 
+                    setBins={setBins} 
+                    bin={bin} 
+                    image={false} 
+            />))}
         </Widget>
     )
 }

@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 import LoadingBarProvider from './contexts/LoadingBarProvider'
 import MyLoadingBar from './components/MyLoadingBar'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 

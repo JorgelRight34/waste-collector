@@ -27,7 +27,7 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
         <>
             <div className="bg-white border rounded shadow-sm">
                 <div className="d-flex p-3 border-bottom mb-3">
-                    <h3>{title}</h3>
+                    <h5>{title}</h5>
                     <div 
                         className={`d-flex align-items-center ms-auto ${options ? '' : 'd-none'}`}
                     >
@@ -38,7 +38,7 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
                 </div>
                 <div 
                     ref={itemsContainerRef} 
-                    className="p-3 px-5" 
+                    className="p-2 px-3" 
                     style={{height: height, overflow: 'auto'}}
                     onScroll={handleScroll}
                 >

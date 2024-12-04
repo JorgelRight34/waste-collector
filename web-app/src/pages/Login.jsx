@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar"
 import api from "../api"
 import { useNavigate } from "react-router-dom"
 import { toastStyle } from "../utils/constants"
+import { toast } from "react-toastify"
 
 const Login = ({ }) => {
     const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Login = ({ }) => {
             navigate('/');
         } catch (err) {
             console.log(err);
+
             if (err.status == 401) {
                 toast.error('Credenciales inválidas.', toastStyle)
                 return

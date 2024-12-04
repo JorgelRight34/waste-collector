@@ -5,12 +5,16 @@ import TakeRouteBtn from "../components/TakeRouteBtn";
 import SimulateBtn from "../components/SimulateBtn";
 import useFetchPage from "../hooks/useFetchPage";
 import RouteInfo from "../components/RouteInfo";
+import { useLocation } from "react-router-dom";
 
 
 const BinsRoute = ({ }) => {
     const [center, setCenter] = useState([18.456, -69.9475])
     const [bins, setBins , reload] = useFetchPage('/get-route-bins/');
     const [routes, setRoutes] = useState(null);
+    const location = useLocation(); // This gives you access to the current location
+    const queryParams = new URLSearchParams(location.search);
+    const embed = queryParams.get("embed"); 
 
     useEffect(() => {
         console.log(routes)
@@ -19,8 +23,8 @@ const BinsRoute = ({ }) => {
     
     return (
         <div className="bg-light">
-            <Navbar />
-            <div className="row p-3">
+            {embed ? '' : <Navbar />}
+            <div className="row p-lg-3">
                 <div className="col-lg-8 p-3">
                     {/* {lat: 18.456, lng: -69.9500, label: '1'}, {lat: 18.4500, lng: -69.9400, label: '2'} */}
                     {/* bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id})) */}
@@ -35,9 +39,9 @@ const BinsRoute = ({ }) => {
                         setRoutes={setRoutes}
                     />
                 </div>
-                <div className="col-lg-4 p-3">
-                    <div className="bg-white rounded border p-3 shadow-sm">
-                        <div className="mb-3 d-none">
+                <div className="col-lg-4 p-0 p-lg-3">
+                    <div className="bg-white rounded border p-3 shadow-sm route-options">
+                        <div className="mb-3 d-lg-none">
                             <h3>Opciones</h3>
                         </div>
                         <div className="d-flex flex-column mb-3">

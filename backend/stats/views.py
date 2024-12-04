@@ -37,7 +37,6 @@ def bins(request):
         data[day] = fill_level
 
     return Response(data)
-    
 
 
 
