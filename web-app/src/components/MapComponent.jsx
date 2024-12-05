@@ -45,15 +45,15 @@ const MapComponent = ({
             {/* Center Marker */}
             {waypoints.length > 0 ? (
             <Marker position={[waypoints[0].lat, waypoints[0].lng]} icon={centerIcon}>
-                <Popup>Hey</Popup>  
+                <Popup>Camión</Popup>  
             </Marker>
             ) : ''}
 
             {/* Custom Markers */}
             {waypoints.slice(1).map((point, index) => (
                 <Marker key={index} position={[point.lat, point.lng]}>
-                    <Popup className="bin-popup">
-                        <Bin bin={point} setBins={setBins} image={false} />
+                    <Popup>
+                        <Bin bin={point} setBins={setBins} image={false} className={"bin-popup"}/>
                     </Popup>
                 </Marker>
             ))}

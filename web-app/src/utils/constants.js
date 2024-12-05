@@ -179,3 +179,84 @@ export const toastStyle = {
     theme: "colored",
     transition: Slide
 }
+
+export const zones = {
+    "Bella Vista": {
+      value: 0,
+      minLat: 18.4500,
+      maxLat: 18.4560,
+      minLng: -69.9500,
+      maxLng: -69.9400
+    },
+    "Naco": {
+      value: 1,
+      minLat: 18.4710,
+      maxLat: 18.4760,
+      minLng: -69.9360,
+      maxLng: -69.9260
+    },
+    "Piantini": {
+      value: 2,
+      minLat: 18.4700,
+      maxLat: 18.4750,
+      minLng: -69.9300,
+      maxLng: -69.9200
+    },
+    "Los Cacicazgos": {
+      value: 3,
+      minLat: 18.4630,
+      maxLat: 18.4700,
+      minLng: -69.9530,
+      maxLng: -69.9430
+    },
+    "Gazcue": {
+      value: 4,
+      minLat: 18.4590,
+      maxLat: 18.4640,
+      minLng: -69.9320,
+      maxLng: -69.9220
+    },
+    "La Esperilla": {
+      value: 5,
+      minLat: 18.4540,
+      maxLat: 18.4590,
+      minLng: -69.9270,
+      maxLng: -69.9170
+    },
+    "Ensanche Evaristo Morales": {
+      value: 6,
+      minLat: 18.4600,
+      maxLat: 18.4650,
+      minLng: -69.9200,
+      maxLng: -69.9100
+    },
+    "Parque Iberoamérica": {
+      value: 7,
+      minLat: 18.4500,
+      maxLat: 18.4550,
+      minLng: -69.9200,
+      maxLng: -69.9100
+    },
+    "Mirador Sur": {
+      value: 8,
+      minLat: 18.4640,
+      maxLat: 18.4700,
+      minLng: -69.9300,
+      maxLng: -69.9200
+    },
+    "La Julia": {
+      value: 9,
+      minLat: 18.4490,
+      maxLat: 18.4540,
+      minLng: -69.9380,
+      maxLng: -69.9280
+    },
+    "Ensanche Luperón": {
+      value: 10,
+      minLat: 18.4680,
+      maxLat: 18.4740,
+      minLng: -69.9500,
+      maxLng: -69.9400
+    }
+  };
+  

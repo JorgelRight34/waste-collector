@@ -50,7 +50,7 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
                 onHide={hideDialog}
                 body={dialogBody}
                 title="Nuevo Registro"
-                height="50vh"
+                height="60vh"
             />
         </>
     )

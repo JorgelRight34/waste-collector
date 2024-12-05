@@ -1,7 +1,6 @@
 const RouteInfo = ({ routes }) => {
     return (
         <div>
-            {console.log(routes)}
             {routes?.instructions?.map(instruction => (
                 <div className="border rounded bg-white mb-2">
                     <div className="d-flex border-bottom p-3">
@@ -21,7 +20,7 @@ const RouteInfo = ({ routes }) => {
                                     <span className="material-symbols-outlined fs-6 me-1">
                                         schedule
                                     </span>
-                                    {instruction.time}ms
+                                    {instruction.time}s
                                 </div>
                             </div>
                         )}
@@ -46,7 +45,7 @@ const RouteInfo = ({ routes }) => {
                                     <span className="material-symbols-outlined fs-6 me-1">
                                         schedule
                                     </span>
-                                    {instruction.time}ms
+                                    {instruction.time}s
                                 </div>
                             </div>
                         ): ''}

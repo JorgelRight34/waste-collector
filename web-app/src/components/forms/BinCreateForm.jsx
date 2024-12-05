@@ -6,12 +6,14 @@ const BinCreateForm = ({ setBins }) => {
     const [formData, setFormData] = useState({
         lat: '',
         lng: '',
-        street: ''
+        street: '',
+        zone: 'Bella Vista'
     })
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData(prev => ({...prev, [name]: value}));
+        console.log(formData);
     }
 
     const handleSubmit = async (event) => {
@@ -23,7 +25,8 @@ const BinCreateForm = ({ setBins }) => {
                     lat: formData.lat,
                     lng: formData.lng
                 },
-                street: formData.street
+                street: formData.street,
+                zone: formData.zone
             }, {
                 headers: {
                     'Content-Type' : 'application/json'

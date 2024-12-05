@@ -42,7 +42,7 @@ const Navbar = ({ }) => {
                                 </div>
                             </a>
                         </li>
-                        <li className="nav-item me-3">
+                        <li className="d-none nav-item me-3">
                             <a className="nav-link" onClick={() => navigate('/history')}>
                                 <div className="d-flex align-items-center">
                                     <span className="material-symbols-outlined me-1">

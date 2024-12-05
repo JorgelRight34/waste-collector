@@ -9,8 +9,7 @@ a:hover {
 }
 
 .bin-popup {
-  height: 500px;
-  width: 500px;
+  width: 300px;
 }
 
 .dialog-container {
@@ -72,5 +71,11 @@ a:hover {
     position: absolute !important;
     top: 80% !important;
     max-width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;
   }
 }

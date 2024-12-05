@@ -33,17 +33,22 @@ const Bin = ({ bin, setBins, className, image=true }) => {
                         <h5 className="mb-0">Zafacón {bin.id}</h5>
                         {setBins ? (
                             <div className="ms-auto d-flex align-items-center">
-                                <span className="material-symbols-outlined hover me-3" onClick={deleteBin}>
+                                <span className="material-symbols-outlined fs-6 hover me-3" onClick={deleteBin}>
                                     delete
                                 </span>
-                                <span class="material-symbols-outlined hover" onClick={showDialog}>
+                                <span class="material-symbols-outlined fs-6 hover" onClick={showDialog}>
                                     edit
                                 </span>
                             </div>
                         ): ''}
                     </div>
-                    <div className="mb-2 px-3">
-                        {bin.street}
+                    <div className="mb-2 px-3 text-truncate">
+                        <b className="mb-2">{bin.zone?.zone}</b>
+                    </div>
+                    <div className="mb-2 px-3 text-truncate">
+                        <span className="text-truncate">
+                            {bin.street}
+                        </span>
                     </div>
                     <div className="mb-2 px-3">
                         Llenado: {Math.round(bin.fillLevel * 100, 2)}%
@@ -54,8 +59,8 @@ const Bin = ({ bin, setBins, className, image=true }) => {
                 show={isDialogShowing}
                 onHide={hideDialog}
                 body={<BinEditForm bin={bin} setBins={setBins} />}
-                title="Registrar Zafacón"
-                height="50vh"
+                title="Editar Zafacón"
+                height="75vh"
             />
         </>
     )

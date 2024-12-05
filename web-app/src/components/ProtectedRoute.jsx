@@ -10,14 +10,17 @@ const ProtectedRoute = ({ children }) => {
     const auth = async () => {
         const token = localStorage.getItem('accessToken');
         if (!token) {
+            console.log("No hay token")
             setIsAuthorized(false);
             return;
         }
+
         const decoded = jwtDecode(token);
         const tokenExpiration = decoded.exp;
         const now = Date.now() / 1000;
 
         if (tokenExpiration < now) {
+            console.log("it has expired")
             await refreshToken();
         } else {
             setIsAuthorized(true);
@@ -46,6 +49,7 @@ const ProtectedRoute = ({ children }) => {
     };
 
     useEffect(() => {
+        console.log("starting")
         auth().catch((err) => {console.log(err); setIsAuthorized(false);})
     }, [])
 

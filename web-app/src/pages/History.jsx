@@ -1,30 +1,27 @@
-import Bin from "../components/Bin"
-import Navbar from "../components/Navbar"
-import { historyTestData, testData } from "../utils/constants"
-import { toTitleCase } from "../utils/utility-functions"
+import { useEffect } from "react";
+import RouteMap from "../components/RouteMap"
+import useFetchPage from "../hooks/useFetchPage"
+import MapComponent from "../components/MapComponent";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const History = ({ }) => {
+    const location = useLocation(); 
+    const queryParams = new URLSearchParams(location.search);
+    const routeId = queryParams.get("route"); 
+    const [route] = useFetchPage(`/routes/${routeId}`);
+    const [routes, setRoutes] = useState(null);
+    const lat = route.startingPoint?.coordinates[0];
+    const lng = route.startingPoint?.coordinates[1]
+
+    useEffect(() =>{
+        console.log(route);
+    }, [route])
 
     return (
-        <div className="bg-light">
-            <Navbar />
-            <div className="px-5 mt-5 w-75 mx-auto">
-                <input type="date" className="form-control shadow-sm" />
-            </div>
-            <div className="p-lg-5 w-75 mx-auto">
-                {historyTestData.map(day => (
-                    <div className="mb-5 bg-white border rounded shadow-sm p-3" key={day.day}>
-                        <div className="mb-3">
-                            <h3>{toTitleCase(day.day)}</h3>
-                        </div>
-                        <div className="mb-2 p-3">
-                            {day.bins.map(bin => <Bin className={"mb-3"}  key={bin.id} bin={bin} />)}
-                        </div>
-                    </div>
-                ))}
-
-            </div>
-        </div>
+        <>
+            {Object.keys(route).length > 0 && <RouteMap route={route} />}
+        </>
     )
 }
 

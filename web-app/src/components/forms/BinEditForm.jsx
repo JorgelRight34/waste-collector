@@ -6,7 +6,8 @@ const BinEditForm = ({ bin, setBins }) => {
     const [formData, setFormData] = useState({
         lat: bin.location?.lat,
         lng: bin.location?.lng,
-        street: bin.street
+        street: bin.street,
+        zone: 'Bella Vista'
     })
 
     const handleChange = (event) => {
@@ -23,7 +24,8 @@ const BinEditForm = ({ bin, setBins }) => {
                 lat: formData.lat,
                 lng: formData.lng
             },
-            street: formData.street
+            street: formData.street,
+            zone: formData.zone
         })
         try {
             response = await api.put('bins/', {

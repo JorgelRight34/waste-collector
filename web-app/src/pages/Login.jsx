@@ -1,17 +1,19 @@
-import { useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import Navbar from "../components/Navbar"
 import api from "../api"
 import { useNavigate } from "react-router-dom"
 import { toastStyle } from "../utils/constants"
 import { toast } from "react-toastify"
+import { LoadingBarContext } from "../contexts/LoadingBarProvider"
 
 const Login = ({ }) => {
     const navigate = useNavigate();
-    const formRef = useRef(null)
+    const formRef = useRef(null);
     const [formData, setFormData] = useState({
         username: '',
         password: ''
     })
+    const [, setProgress] = useContext(LoadingBarContext);
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -20,6 +22,7 @@ const Login = ({ }) => {
 
     const login = async (event) => {
         event.preventDefault();
+        setProgress(1);
         try {
             const response = await api.post('/accounts/login/', {
                 username: formData.username,
@@ -31,6 +34,7 @@ const Login = ({ }) => {
             })
             localStorage.setItem('accessToken', response.data.access_token);
             localStorage.setItem('refreshToken', response.data.access_token);
+            setProgress(2);
             navigate('/');
         } catch (err) {
             console.log(err);
@@ -39,6 +43,8 @@ const Login = ({ }) => {
                 toast.error('Credenciales inválidas.', toastStyle)
                 return
             } 
+            
+            setProgress(2);
             toast.error('Ha ocurrido un error.', toastStyle)
         }
     }
@@ -68,7 +74,7 @@ const Login = ({ }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="mb-2">
+                            <div className="mb-3">
                                 <div className="form-group">
                                     <label className="form-label" id="username">
                                         Contraseña
