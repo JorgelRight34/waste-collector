@@ -1,2 +1,4 @@
 .gitignore
 backend/venv
+*.env
+*.sqlite3
