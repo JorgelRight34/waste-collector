@@ -3,7 +3,8 @@ import api from "../api"
 const TakeRouteBtn = ({ className, bins, startingPoint, children, routes }) => {
     const handleClick = async () => {
         let today = new Date;
-        today = Date.getDay();
+        today = 2
+        console.log("today", today)
 
         const response = await api.post('/routes/', {
             bins: bins,

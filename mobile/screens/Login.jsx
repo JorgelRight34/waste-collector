@@ -16,26 +16,31 @@ const Login = ({ navigation }) => {
         let response;
         console.log("iniciando")
         try {
-            response = await api.post('/accounts/login/', {
-                username: username,
-                password: password
-            }, 
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
+            try {
+                response = await api.post('/accounts/login/', {
+                    username: username,
+                    password: password
+                }, 
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+            } catch (err) {
+                console.log(err);
+                Alert.alert("Ha habido un error al iniciar sesión")
+                await AsyncStorage.removeItem('accessToken', response.data?.access_token);
+                await AsyncStorage.removeItem('refreshToken', response.data?.refresh_token);
+                return
+            }   
+            
+            await AsyncStorage.setItem('accessToken', response.data?.access_token);
+            await AsyncStorage.setItem('refreshToken', response.data?.refresh_token);
+            navigation.navigate('Inicio');
         } catch (err) {
             console.log(err);
-            Alert.alert("Ha habido un error al iniciar sesión")
-            return
-        }   
-        
-        await AsyncStorage.setItem('accessToken', response.data?.access_token);
-        await AsyncStorage.setItem('refreshToken', response.data?.refresh_token);
-    
-        setUser(response.data.user);
-        navigation.navigate('Inicio');
+        }
+       
     }
 
     return (

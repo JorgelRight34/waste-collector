@@ -12,6 +12,11 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
         getStreet();
     }
 
+    const handleSelectZone = (event) => {
+        handleChange(event);
+        setFormData(prev => ({...prev, street: ''}))
+    }
+
     const getStreet = async () => {
         const lat = formData.lat;
         const lon = formData.lng;
@@ -74,7 +79,7 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
                 <select
                     className="form-control" 
                     name="zone" 
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleSelectZone(e)}
                 >
                     {Object.keys(zones).map(zone => (
                         <option key={zones[zone].value} value={zone}>

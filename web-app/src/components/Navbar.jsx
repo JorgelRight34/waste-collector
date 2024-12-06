@@ -2,6 +2,12 @@ import { useNavigate } from "react-router-dom"
 
 const Navbar = ({ }) => {
     const navigate = useNavigate();
+    
+    const logout = () => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        navigate('/login');
+    }
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary p-0">
@@ -63,7 +69,7 @@ const Navbar = ({ }) => {
                             </a>
                         </li>
                         <li className="nav-item me-3">
-                            <a className="nav-link" onClick={() => navigate('/dashboard')}>
+                            <a className="nav-link" onClick={logout}>
                                 <div className="d-flex align-items-center">
                                     <span className="material-symbols-outlined me-1">
                                         logout

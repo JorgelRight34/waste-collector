@@ -24,17 +24,18 @@ def routes(request):
 @permission_classes([AllowAny])
 def bins(request):
     days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
-    # Routes per day
-    data = {f"{days[i]}": Route.objects.filter(day_of_the_week=i) for i in range(7)}
-
-    for day in days:
+    
+    # Calcular el nivel de llenado total por día
+    data = {}
+    for i in range(7):
         fill_level = 0
-
-        for route in data[day]:
+        # Obtener las rutas correspondientes al día de la semana
+        routes = Route.objects.filter(day_of_the_week=i)
+        for route in routes:
+            # Sumar el nivel de llenado de los contenedores en cada ruta
             for bin in route.bins.all():
                 fill_level += bin.fill_level
-
-        data[day] = fill_level
+        data[days[i]] = fill_level
 
     return Response(data)
 

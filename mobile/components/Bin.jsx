@@ -9,6 +9,9 @@ const Bin = ({ bin, style }) => {
                     <Text style={{...styles.h5}}>Zafacón #{bin.id}</Text>
                 </View>
                 <View>
+                    <Text style={{...styles.h6, ...styles.bold}} numberOfLines={1}>{bin.zone.zone}</Text>
+                </View>
+                <View>
                     <Text style={{...styles.h6}} numberOfLines={1}>{bin.street}</Text>
                 </View>
                 <View>

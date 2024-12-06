@@ -17,10 +17,10 @@ const CollectionRoute = ({ route, className, height }) => {
     return (
         <>
             <View  
-                style={{ height: height, ...styles.container,  borderRadius: 10 }}
+                style={{ height: height, ...styles.container,  borderRadius: 10, ...styles.mb5 }}
             >
                 <View style={{...styles.p2, ...styles.borderBottom}}>
-                    <Text>{route?.startingPoint?.name}</Text>
+                    <Text numberOfLines={1}>{route?.startingPoint?.name}</Text>
                 </View>
                 <View style={{...styles.p2, ...styles.borderBottom, width: '95%'}}>
                     <View style={{...styles.me3, flexDirection: 'row'}}>

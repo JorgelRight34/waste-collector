@@ -7,7 +7,7 @@ const DEV3 = 'http://192.168.4.122:8000/'
 const PROD = 'https://waste-collector-backend-7wttsirfr-jorgelright34s-projects.vercel.app/'
 
 const api = axios.create({
-    baseURL: PROD
+    baseURL: DEV3
 });
 
 api.interceptors.request.use(

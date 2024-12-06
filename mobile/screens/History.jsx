@@ -19,7 +19,7 @@ const History = ({ navigation }) => {;
                 contentContainerStyle={{}}
                 style={{...styles.p1}}
             >
-            {routes.map(route => <CollectionRoute key={route.id} route={route} />)}
+                {routes.map(route => <CollectionRoute key={route.id} route={route} />)}
             </ScrollView>
         </ProtectedRoute>
     )

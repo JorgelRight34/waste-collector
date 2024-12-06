@@ -3,6 +3,7 @@ import api from "../api"
 import trashBin from "../assets/trashBin.png"
 import Dialog from "./Dialog"
 import BinEditForm from "./forms/BinEditForm";
+import MyProgressBar from "./MyProgressBar";
 
 const Bin = ({ bin, setBins, className, image=true }) => {
     const [isDialogShowing, setIsDialogShowing] = useState(false);
@@ -52,6 +53,14 @@ const Bin = ({ bin, setBins, className, image=true }) => {
                     </div>
                     <div className="mb-2 px-3">
                         Llenado: {Math.round(bin.fillLevel * 100, 2)}%
+                    </div>
+                    <div className="mb-3 px-3">
+                        <MyProgressBar 
+                            containerColor={"#e0e0e0"} 
+                            barColor={"blue"} 
+                            height={"1.75px"} 
+                            progress={`${bin.fillLevel * 100}%`} 
+                        />
                     </div>
                 </div>
             </div>

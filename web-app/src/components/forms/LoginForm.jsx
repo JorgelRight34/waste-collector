@@ -39,13 +39,15 @@ const LoginForm = ({ }) => {
             console.log(err);
 
             if (err.status == 401) {
-                toast.error('Credenciales inválidas.', toastStyle)
+                alert('Credenciales inválidas.');
+                toast.error('Credenciales inválidas.', toastStyle);
                 setProgress(2);
                 return
             } 
        
             setProgress(2);
-            toast.error('Ha ocurrido un error.', toastStyle)
+            alert('Ha ocurrido un error.');
+            toast.error('Ha ocurrido un error.', toastStyle);
         }
     }
 

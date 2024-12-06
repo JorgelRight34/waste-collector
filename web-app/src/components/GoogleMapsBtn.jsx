@@ -15,7 +15,7 @@ const GoogleMapsBtn = ({ className, waypoints, children }) => {
     }
 
     return (
-        <button className={`btn btn-outline-primary ${className}`} onClick={handleClick}>
+        <button className={className} onClick={handleClick}>
             {children}
         </button>
     )
