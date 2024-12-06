@@ -63,6 +63,11 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50
     },
+    rowCenter: {
+        flexDirection: 'row', 
+        alignItems: 'center',
+        justifyContent: 'center', 
+    },
     p1: {
         padding: 10
     },
@@ -77,6 +82,15 @@ const styles = StyleSheet.create({
     },
     pb3: {
         paddingBottom: 30
+    },
+    msAuto: {
+        marginLeft: 'auto'
+    },
+    mb1: {
+        marginBottom: 10
+    },
+    mb2: {
+        marginBottom: 20
     },
     mb3: {
         marginBottom: 30

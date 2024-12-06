@@ -11,8 +11,10 @@ class Bin(models.Model):
 
 
     @classmethod
-    def create_bin(self, location, street):
-        street = Street.objects.get_or_create(street=street)
+    def create_bin(self, location, street, zone):
+        zone = Zone.objects.get_or_create(zone=zone)[0]
+        zone.save()
+        street = Street.objects.get_or_create(street=street, zone=zone)[0]
         bin = Bin(location=location, street=street)
         bin.save()
         return bin
@@ -22,12 +24,28 @@ class Bin(models.Model):
             'id': self.id,
             'location': self.location,
             'street': self.street.street,
-            'fillLevel': self.fill_level
+            'fillLevel': self.fill_level,
+            'zone': self.street.zone.serialize() if self.street.zone else None,
         }
 
 
+class Zone(models.Model):
+    zone = models.CharField(max_length=255)
+
+    
+    def serialize(self):
+        return {
+            'zone': self.zone
+        }
+
 class Street(models.Model):
     street = models.CharField(max_length=255)
+    zone = models.ForeignKey(
+        Zone, related_name='streets', 
+        on_delete=models.CASCADE, 
+        blank=True, 
+        null=True
+    )
 
 
 class Route(models.Model):

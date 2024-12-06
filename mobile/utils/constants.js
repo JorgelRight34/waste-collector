@@ -1,0 +1,1 @@
+export const webServerUrl = `http://192.168.4.122:5173`;

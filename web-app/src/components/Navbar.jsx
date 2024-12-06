@@ -22,7 +22,7 @@ const Navbar = ({ }) => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li className="nav-item me-3">
+                        <li className="nav-item d-none me-3">
                             <a className="nav-link active" aria-current="page" onClick={() => navigate('/')}>
                                 <div className="d-flex align-items-center">
                                     <span className="material-symbols-outlined me-1">

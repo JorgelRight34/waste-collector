@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 import json
 
-from .models import Bin, Route, Street
+from .models import Bin, Route, Street, Zone
 
 # Create your views here.
 @api_view(('GET', 'POST', 'PUT', 'DELETE'))
@@ -16,17 +16,18 @@ from .models import Bin, Route, Street
 def bin(request, id=None):
     if request.method == "POST":
         data = json.loads(request.body)
-        bin = Bin.create_bin(location=data["location"], street=data["street"])
+        bin = Bin.create_bin(location=data["location"], street=data["street"], zone=data["zone"])
         return Response(bin.serialize())
     
     if request.method == "PUT":
         data = json.loads(request.body)
+        print(data)
         bin = Bin.objects.get(id=data["id"])
-
         for key in data.keys():
             if key == "street":
-                print(data["street"])
-                street = Street.objects.get_or_create(street=data["street"])
+                zone = Zone.objects.get_or_create(zone=data["zone"])[0]
+                zone.save()
+                street = Street.objects.get_or_create(street=data["street"], zone=zone)
                 setattr(bin, key, street[0])
                 continue
             setattr(bin, key, data[key])
@@ -56,7 +57,7 @@ def bin(request, id=None):
             
         if page:
             per_page = request.GET.get('limit', 10)
-            bins = Paginator(Bin.objects.all(), per_page=per_page)
+            bins = Paginator(Bin.objects.all().order_by('id'), per_page=per_page)
 
             try:
                 bins = bins.page(page)
@@ -107,7 +108,7 @@ def route(request, id=None):
             try:
                 route = Route.objects.get(id=id)
                 return Response(route.serialize())
-            except Bin.DoesNotExist:
+            except Route.DoesNotExist:
                 return HttpResponse("Route does not exist", status=401)
         if page:
             per_page = request.GET.get('limit', 10)
@@ -126,10 +127,16 @@ def route(request, id=None):
 @api_view(('GET',))
 @permission_classes([AllowAny])
 def get_route_bins(request):
-    bins = Bin.objects.filter(fill_level__gte=0.5)
+    fill_level = request.GET.get('fill', 0.5)
+
+    try:
+        fill_level = float(fill_level)
+    except ValueError:
+        fill_level = 0.5
+    bins = Bin.objects.filter(fill_level__gte=fill_level)
 
     page = request.GET.get('page', 1)
-    per_page = request.GET.get('limit', 10)
+    per_page = request.GET.get('per_page', 100)
     bins = Paginator(bins, per_page=per_page)
 
     try:

@@ -1,14 +1,18 @@
 
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Modal, Text, TouchableOpacity, View } from "react-native";
 import styles from "../styles";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesome } from '@expo/vector-icons'
+import MyWebView from "./MyWebView";
+import { webServerUrl } from "../utils/constants";
 
 
 const CollectionRoute = ({ route, className, height }) => {
-    const [isDialogShowing, setIsDialogShowing] = useState(false)
-    const [routes, setRoutes] = useState(null);
+    const [isModalShowing, setIsModalShowing] = useState(false)
 
+    const hideModal = () => {
+        setIsModalShowing(false);
+    }
 
     return (
         <>
@@ -18,42 +22,48 @@ const CollectionRoute = ({ route, className, height }) => {
                 <View style={{...styles.p2, ...styles.borderBottom}}>
                     <Text>{route?.startingPoint?.name}</Text>
                 </View>
-                <View style={{...styles.p2, ...styles.borderBottom, flexDirection: 'row'}}>
-                    <View className="d-flex align-items-center me-3" style={{...styles.me3, flexDirection: 'row'}}>
-                        <Icon name="map-marker-distance" size={30} color="black" />
+                <View style={{...styles.p2, ...styles.borderBottom, width: '95%'}}>
+                    <View style={{...styles.me3, flexDirection: 'row'}}>
+                        <FontAwesome icon="fa-solid fa-truck-front" size={25} color="black" />
                         <Text>{route.distance}m</Text>
                     </View>
-                    <View className="d-flex align-items-center me-3" style={{...styles.me3, flexDirection: 'row'}}>
-                        <Icon name="clock" size={30} color="black" />
+                    <View style={{...styles.me3, flexDirection: 'row'}}>
+                        <FontAwesome icon="fa-solid fa-clock" size={25} color="black" />
                         <Text>{route.duration}s</Text>
                     </View>
-                    <View className="d-flex align-items-center me-3" style={{...styles.me3, flexDirection: 'row'}}>
-                        <Icon name="date" size={30} color="black" />
+                    <View style={{...styles.me3, flexDirection: 'row'}}>
+                        <FontAwesome icon="fa-solid fa-calendar" size={25} color="black" />
                         <Text>{route.date}</Text>
                     </View>
-                    <View className="d-flex align-items-center me-3" style={{flexDirection: 'row'}}>
-                        <Icon name="recycle" size={30} color="black" />
+                    <View style={{flexDirection: 'row'}}>
+                        <FontAwesome icon="fa-solid fa-location-dot" size={25} color="black" />
                         <Text>{route?.instructions?.length}</Text>
                     </View>
                 </View>
                 <View style={{...styles.p2}}>
-                    <TouchableOpacity style={{...styles.primaryBtn}} onPress={() => console.log(route)}>
+                    <TouchableOpacity style={{...styles.primaryBtn}} onPress={() => setIsModalShowing(true)}>
                         <Text style={{...styles.whiteText}}>Más Información</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            {/*
-            <Dialog
-                title={route?.startingPoint?.name}
-                show={isDialogShowing}
-                onHide={handleOnHide}
-                body={isDialogShowing ? renderDialogBody() : ''}
-                height="95vh"
-                width="95vw"
-            /> */}
-
+            <Modal
+                visible={isModalShowing}
+                onRequestClose={hideModal}
+                animationType="slide"
+            >
+                <View style={{...styles.rowCenter, ...styles.p2, ...styles.borderBottom}}>
+                    <Text>
+                        Ruta #{route.id}
+                    </Text>
+                    <TouchableOpacity style={{...styles.msAuto, width: 40}} onPress={hideModal}>
+                        <Text>Cerrar</Text>
+                    </TouchableOpacity>
+                </View>
+                 <MyWebView
+                    uri={`${webServerUrl}/history/?route=${route.id}` }
+                />
+            </Modal>
         </>
-    
     )
 }
 

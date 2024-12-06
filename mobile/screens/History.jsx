@@ -4,21 +4,24 @@ import { FlatList, ScrollView } from "react-native-gesture-handler"
 import CollectionRoute from "../components/CollectionRoute"
 import useFetchPage from "../hooks/useFetchPage"
 import { useEffect } from "react"
+import ProtectedRoute from "../components/ProtectedRoute"
 
-const History = ({ }) => {;
+const History = ({ navigation }) => {;
     const [routes, setRoutes] = useFetchPage('/routes/')
 
     useEffect(() => {
-        console.log(routes)
+        
     }, [routes])
 
     return (
-        <ScrollView 
-            contentContainerStyle={{}}
-            style={{...styles.p1}}
-        >
-            {routes.map(route => <CollectionRoute route={route} />)}
-        </ScrollView>
+        <ProtectedRoute navigation={navigation}>
+            <ScrollView 
+                contentContainerStyle={{}}
+                style={{...styles.p1}}
+            >
+            {routes.map(route => <CollectionRoute key={route.id} route={route} />)}
+            </ScrollView>
+        </ProtectedRoute>
     )
 }
 

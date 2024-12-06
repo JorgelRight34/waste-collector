@@ -5,95 +5,54 @@ import { useNavigate } from "react-router-dom"
 import { toastStyle } from "../utils/constants"
 import { toast } from "react-toastify"
 import { LoadingBarContext } from "../contexts/LoadingBarProvider"
+import LoginForm from "../components/forms/LoginForm"
 
 const Login = ({ }) => {
-    const navigate = useNavigate();
-    const formRef = useRef(null);
-    const [formData, setFormData] = useState({
-        username: '',
-        password: ''
-    })
-    const [, setProgress] = useContext(LoadingBarContext);
-
-    const handleChange = (event) => {
-        const { name, value } = event.target
-        setFormData(prev => ({...prev, [name] : value}))
-    }
-
-    const login = async (event) => {
-        event.preventDefault();
-        setProgress(1);
-        try {
-            const response = await api.post('/accounts/login/', {
-                username: formData.username,
-                password: formData.password,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            localStorage.setItem('accessToken', response.data.access_token);
-            localStorage.setItem('refreshToken', response.data.access_token);
-            setProgress(2);
-            navigate('/');
-        } catch (err) {
-            console.log(err);
-
-            if (err.status == 401) {
-                toast.error('Credenciales inválidas.', toastStyle)
-                return
-            } 
-            
-            setProgress(2);
-            toast.error('Ha ocurrido un error.', toastStyle)
-        }
-    }
-
-
-
+ 
     return (
         <>
             <div className="bg-light h-100">
-                <Navbar />
-                <div className="d-flex align-items-center justify-content-center p-lg-5">
-                    <div className="bg-white border rounded p-3 w-50">
-                        <div className="mb-3">
-                            <h3>Iniciar Sesión</h3>
-                        </div>
-                        <form ref={formRef} onSubmit={(e) => login(e)}>
-                            <div className="mb-2">
-                                <div className="form-group">
-                                    <label className="form-label" id="username">
-                                        Username
-                                    </label>
-                                    <input 
-                                        className="form-control" 
-                                        name="username"
-                                        value={formData.username}
-                                        onChange={(e) => handleChange(e)}
-                                    />
-                                </div>
-                            </div>
+               
+                <div className="row h-100">
+                    <div className="col-lg-4 bg-white border d-flex align-items-center justify-content-center shadow-sm">   
+                        <div className="bg-white rounded p-3 w-75">
                             <div className="mb-3">
-                                <div className="form-group">
-                                    <label className="form-label" id="username">
-                                        Contraseña
-                                    </label>
-                                    <input 
-                                        className="form-control" 
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={(e) => handleChange(e)}
-                                        type="password" 
-                                    />
-                                </div>
+                                <h3>Iniciar Sesión</h3>
                             </div>
-                            <div>
-                                <button type="submit" className="btn btn-primary" onClick={login}>
-                                    Enviar
-                                </button>
+                            <LoginForm />      
+                        </div>
+                    </div>
+                    <div id="login" className="col-lg-8 p-0">
+                        <div className="blue-overlay p-5 d-flex flex-column align-items-center justify-content-center">
+                            <h1 className="mb-3 shadow-sm">Recolector de Residuos</h1>
+                            <hr style={{ border: 'none', borderTop: '2px solid white', opacity: 1, width: '80%'}} />
+                            <div>    
+                                <p className="shadow-sm">
+                                    Bienvenido al sistema inteligente de recolección de residuos de Santo Domingo, 
+                                    una solución tecnológica diseñada para optimizar las rutas de recolección y 
+                                    garantizar una gestión eficiente de los recursos. Nuestro objetivo es contribuir 
+                                    a un entorno más limpio y sostenible, utilizando sensores y tecnología avanzada 
+                                    para monitorear en tiempo real el nivel de llenado de los zafacones en la ciudad.
+                                </p>
+                                <p className="shadow-sm">
+                                    Con esta plataforma, los equipos de gestión podrán acceder a datos precisos y 
+                                    actualizados sobre el estado de cada contenedor, priorizando aquellos que necesitan
+                                    atención inmediata. Esto no solo reduce costos operativos, sino que también disminuye
+                                    la huella ambiental al evitar recorridos innecesarios.
+                                </p>
+                                <p className="shadow-sm">
+                                    La integración de una aplicación web y móvil permite a los usuarios visualizar las rutas más
+                                    eficientes y recibir notificaciones en tiempo real. Este sistema fomenta la participación 
+                                    ciudadana en el manejo adecuado de los residuos y promueve prácticas sostenibles en nuestra
+                                    comunidad.
+                                </p>
+                                <p className="shadow-sm">
+                                    Inicia sesión para explorar todas las funcionalidades de la plataforma y únete a nuestro esfuerzo
+                                    por transformar la gestión de residuos en Santo Domingo. Juntos, podemos crear una ciudad más limpia, 
+                                    organizada y comprometida con el medio ambiente.
+                                </p>
                             </div>
-                        </form>                     
+                        </div>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import RouteInfo from "../components/RouteInfo";
 import { useLocation } from "react-router-dom";
 import { zones } from "../utils/constants";
 import GoogleMapsBtn from "../components/GoogleMapsBtn";
+import googleMapsSVG from '../assets/google-maps.svg';
 
 
 const BinsRoute = ({ }) => {
@@ -120,12 +121,16 @@ const BinsRoute = ({ }) => {
                                     Tomar Ruta
                                 </div>
                             </TakeRouteBtn>
-                            <GoogleMapsBtn  
+                            <GoogleMapsBtn 
+                                className={"btn btn-outline-primary d-flex align-items-center justify-content-center"} 
                                 waypoints={[
                                     {lat: center[0], lng: center[1], label: 'Comienzo'},
                                     ...bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id, ...bin})), 
                                 ]}
-                            />
+                            >
+                                <img className="me-1" src={googleMapsSVG} alt="Map Icon" width="24" height="24" />
+                                Abrir con Google Maps
+                            </GoogleMapsBtn>
                         </div>
                         <div className="mb-3">
                             <h5 className="mb-3 text-truncate">{routes?.name}</h5>

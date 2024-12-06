@@ -27,7 +27,7 @@ const Login = ({ navigation }) => {
             })
         } catch (err) {
             console.log(err);
-            Alert("Ha habido un error al iniciar sesión")
+            Alert.alert("Ha habido un error al iniciar sesión")
             return
         }   
         
@@ -41,7 +41,7 @@ const Login = ({ navigation }) => {
     return (
         <View style={{...styles.container}}>
             <View style={{...styles.mb5}}>
-                <Text style={{...styles.h1}}>Iniciar Sesión</Text>
+                <Text style={{...styles.h1}}>Bienvenido</Text>
             </View>
             <View style={{...styles.mb5}}>
                 <TextInput 
@@ -52,6 +52,7 @@ const Login = ({ navigation }) => {
                     autoCorrect={false}
                     placeholder='Username'
                 />
+
                 <TextInput
                     style={{...styles.input, ...styles.mb3, width: inputWidth}}
                     onChangeText={setPassword}
@@ -64,10 +65,7 @@ const Login = ({ navigation }) => {
             </View>
             <View>
                 <TouchableOpacity style={{...styles.primaryBtn}} onPress={handleOnPress}>
-                    <Text style={{...styles.whiteText}}>Submit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{...styles.primaryBtn}} onPress={async () => navigation.navigate("Inicio")}>
-                    <Text style={{...styles.whiteText}}>Clear Localstorage</Text>
+                    <Text style={{...styles.whiteText}}>Continuar</Text>
                 </TouchableOpacity>
             </View>
         </View>

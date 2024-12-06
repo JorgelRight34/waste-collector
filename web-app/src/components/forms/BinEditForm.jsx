@@ -18,15 +18,6 @@ const BinEditForm = ({ bin, setBins }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         let response;
-        console.log({
-            id: bin.id,
-            location: {
-                lat: formData.lat,
-                lng: formData.lng
-            },
-            street: formData.street,
-            zone: formData.zone
-        })
         try {
             response = await api.put('bins/', {
                 id: bin.id,
@@ -34,7 +25,8 @@ const BinEditForm = ({ bin, setBins }) => {
                     lat: formData.lat,
                     lng: formData.lng
                 },
-                street: formData.street
+                street: formData.street,
+                zone: formData.zone
             }, {
                 headers: {
                     'Content-Type' : 'application/json'

@@ -11,6 +11,7 @@ import LoadingBarProvider from './contexts/LoadingBarProvider';
 const Stack = createStackNavigator();
 
 export default function App() {
+
   return (
     <UserProvider>
       <LoadingBarProvider>

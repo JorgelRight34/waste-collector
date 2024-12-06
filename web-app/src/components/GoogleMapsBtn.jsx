@@ -1,4 +1,4 @@
-const GoogleMapsBtn = ({ className, waypoints }) => {
+const GoogleMapsBtn = ({ className, waypoints, children }) => {
     const handleClick = () => {
         const getLocation = (point) => {
             return `${point.lat},${point.lng}`
@@ -11,12 +11,12 @@ const GoogleMapsBtn = ({ className, waypoints }) => {
         const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${waypoints2}&travelmode=driving`;
 
         // Open the URL
-        window.open(googleMapsUrl);
+        window.open(googleMapsUrl, '_blank');
     }
 
     return (
         <button className={`btn btn-outline-primary ${className}`} onClick={handleClick}>
-            Abrir con Google Maps
+            {children}
         </button>
     )
 }
