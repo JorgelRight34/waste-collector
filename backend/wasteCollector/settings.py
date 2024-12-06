@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n+2*$i%1oze951wyxd9lw#b@6zt1!2!9wr_)xg!kh8rrf0io9+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+IN_PROD = True if os.environ.get('PROD') == 'True' else False
+DEBUG = False if IN_PROD else True
 
 ALLOWED_HOSTS = ['.vercel.app', '10.0.0.16', '*'] # Allow internal network devices as hosts
 
@@ -83,10 +84,14 @@ WSGI_APPLICATION = 'wasteCollector.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-if os.environ.get('PROD') == 'True':
-     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+""""
+DATABASES = {
+        'default': dj_database_url.config(default="postgresql://postgres:MPULebmeqfMjlNThWjwlpFZgyKrxmAbi@junction.proxy.rlwy.net:32322/railway")
+}
+""" 
+if IN_PROD:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
 else:
     DATABASES = {
@@ -95,6 +100,7 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
