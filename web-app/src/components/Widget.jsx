@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import Dialog from "./Dialog";
 
-const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
+const Widget = ({ title, options, customOptions='', height, children, dialogBody, setPage }) => {
     const [isDialogShowing, setIsDialogShowing] = useState(false);
     const itemsContainerRef = useRef(null);
 
@@ -26,7 +26,7 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
     return (
         <>
             <div className="bg-white border rounded shadow-sm">
-                <div className="d-flex p-3 border-bottom mb-3">
+                <div className="d-flex align-items-center p-3 border-bottom mb-3">
                     <h5>{title}</h5>
                     <div 
                         className={`d-flex align-items-center ms-auto ${options ? '' : 'd-none'}`}
@@ -35,6 +35,7 @@ const Widget = ({ title, options, height, children, dialogBody, setPage }) => {
                             add
                         </span>
                     </div>
+                    {customOptions}
                 </div>
                 <div 
                     ref={itemsContainerRef} 

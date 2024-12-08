@@ -1,10 +1,3 @@
-import { useContext, useRef, useState } from "react"
-import Navbar from "../components/Navbar"
-import api from "../api"
-import { useNavigate } from "react-router-dom"
-import { toastStyle } from "../utils/constants"
-import { toast } from "react-toastify"
-import { LoadingBarContext } from "../contexts/LoadingBarProvider"
 import LoginForm from "../components/forms/LoginForm"
 
 const Login = ({ }) => {
@@ -12,12 +5,11 @@ const Login = ({ }) => {
     return (
         <>
             <div className="bg-light h-100">
-               
                 <div className="row h-100">
                     <div className="col-lg-4 bg-white border d-flex align-items-center justify-content-center shadow-sm">   
                         <div className="bg-white rounded p-3 w-75">
                             <div className="mb-3">
-                                <h3>Iniciar Sesión</h3>
+                                <h3 className="text-center">Iniciar Sesión</h3>
                             </div>
                             <LoginForm />      
                         </div>

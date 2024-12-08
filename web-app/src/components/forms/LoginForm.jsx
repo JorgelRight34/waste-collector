@@ -36,17 +36,13 @@ const LoginForm = ({ }) => {
             setProgress(2);
             navigate('/');
         } catch (err) {
-            console.log(err);
-
             if (err.status == 401) {
-                alert('Credenciales inválidas.');
                 toast.error('Credenciales inválidas.', toastStyle);
                 setProgress(2);
                 return
             } 
        
             setProgress(2);
-            alert('Ha ocurrido un error.');
             toast.error('Ha ocurrido un error.', toastStyle);
         }
     }
@@ -83,7 +79,7 @@ const LoginForm = ({ }) => {
             <div>
                 <button type="submit" className="btn w-100 btn-primary" onClick={login}>
                     <div className="d-flex align-items-center justify-content-center">
-                        <span class="material-symbols-outlined me-3">
+                        <span className="material-symbols-outlined me-3">
                             login
                         </span>
                         Ingresar

@@ -1,9 +1,13 @@
 import { useState } from "react"
-import LineChart from "../components/LineChart"
 import Navbar from "../components/Navbar"
 import BinsDisplay from "../components/dashboard/BinsDisplay"
 import RoutesDisplay from "../components/dashboard/RoutesDisplay"
 import DashboardChart from "../components/dashboard/DashboardChart"
+import SearchForm from "../components/dashboard/SearchBinsForm"
+import Bin from "../components/Bin"
+import CollectionRoute from "../components/CollectionRoute"
+import SearchBinsForm from "../components/dashboard/SearchBinsForm"
+import SearchRoutesForm from "../components/dashboard/SearchRoutesForm"
 
 const Dashboard = ({ }) => {
     const [isDialogShowing, setIsDialogShowing] = useState(false);
@@ -30,6 +34,13 @@ const Dashboard = ({ }) => {
                             title="Rutas por Día" 
                             label="Rutas por Día"
                         />
+                        {/* Bins per Zone */}
+                        <DashboardChart
+                            className="mb-2"
+                            endpoint="stats/zones/"
+                            title="Zafacones por Zonas Más Llenas"
+                            label="Zafacones por Zona"
+                        />
                         {/* Routes per Day */}
                         <DashboardChart
                             endpoint="stats/bins/"
@@ -37,6 +48,18 @@ const Dashboard = ({ }) => {
                             label="Nivel de Llenado por Día"
                         />
                     </div>
+                </div>
+            </div>
+            <div className="row p-lg-3">
+                <div className="col-lg-6">
+                    <SearchBinsForm
+                        title="Buscar Zafacones" 
+                    />
+                </div>
+                <div className="col-lg-6">
+                    <SearchRoutesForm
+                        title="Buscar Rutas" 
+                    />
                 </div>
             </div>
         </div>

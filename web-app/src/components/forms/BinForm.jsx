@@ -14,6 +14,7 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
 
     const handleSelectZone = (event) => {
         handleChange(event);
+        setFormData(prev => ({...prev, lat: '', lng: ''}));
         setFormData(prev => ({...prev, street: ''}))
     }
 
@@ -40,40 +41,9 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
 
     return (
         <form onSubmit={handleSubmit} className="p-3">
-            {/* First row */}
-            <div className="row form-group mb-2">
-                <div className="col-6 d-flex flex-column px-3">
-                    <label for="lat" className="form-label">
-                        Latitud
-                    </label>
-                    <input 
-                        name="lat" 
-                        id="lat" 
-                        className="form-control"
-                        value={formData.lat} 
-                        onBlur={getStreet} 
-                        onChange={(e) => handleChange(e)} 
-                        required
-                    />
-                </div>
-                <div className="col-6 d-flex flex-column px-3">
-                    <label for="lng" className="form-label">
-                        Longitud
-                    </label>
-                    <input 
-                        name="lng" 
-                        id="lng" 
-                        className="form-control"
-                        value={formData.lng} 
-                        onBlur={getStreet} 
-                        onChange={(e) => handleChange(e)} 
-                        required
-                    />
-                </div>
-            </div>
-            {/* Second Row */}
+            {/* First Row */}
             <div className="row d-flex flex-column justify-content-center px-3 mb-2">
-                <label for="zone" className="form-label"> 
+                <label htmlFor="zone" className="form-label"> 
                     Sector/Zona
                 </label>
                 <select
@@ -88,9 +58,40 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
                     ))}
                 </select>
             </div>
+            {/* Second row */}
+            <div className="row form-group mb-2">
+                <div className="col-6 d-flex flex-column px-3">
+                    <label htmlhtmlFor="lat" className="form-label">
+                        Latitud
+                    </label>
+                    <input 
+                        name="lat" 
+                        id="lat" 
+                        className="form-control"
+                        value={formData.lat} 
+                        onBlur={getStreet} 
+                        onChange={(e) => handleChange(e)} 
+                        required
+                    />
+                </div>
+                <div className="col-6 d-flex flex-column px-3">
+                    <label htmlFor="lng" className="form-label">
+                        Longitud
+                    </label>
+                    <input 
+                        name="lng" 
+                        id="lng" 
+                        className="form-control"
+                        value={formData.lng} 
+                        onBlur={getStreet} 
+                        onChange={(e) => handleChange(e)} 
+                        required
+                    />
+                </div>
+            </div>
             {/* Third Row */}
             <div className="row d-flex flex-column justify-content-center px-3 mb-5">
-                <label for="street" className="form-label"> 
+                <label htmlFor="street" className="form-label"> 
                     Calle
                 </label>
                 <input 

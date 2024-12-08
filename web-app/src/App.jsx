@@ -15,19 +15,32 @@ function App() {
 
   return (
     <>
-    <LoadingBarProvider>
-      <MyLoadingBar />
-      <Router>  
-          <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
-            <Route path='/status' element={<ProtectedRoute><BinsStatus /></ProtectedRoute>} />
-            <Route path='/route' element={<ProtectedRoute><BinsRoute /></ProtectedRoute>} />
-            <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
-            <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          </Routes>
-        </Router>
-    </LoadingBarProvider>
+      <LoadingBarProvider>
+        <MyLoadingBar />
+        <Router>  
+            <Routes>
+              <Route path='/login' element={<Login />} />
+              <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+              <Route path='/status' element={<ProtectedRoute><BinsStatus /></ProtectedRoute>} />
+              <Route path='/route' element={<ProtectedRoute><BinsRoute /></ProtectedRoute>} />
+              <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
+              <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            </Routes>
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+              transition="Slide"
+            />
+          </Router>
+      </LoadingBarProvider>
     </>
   )
 }

@@ -1,5 +1,9 @@
 import { Slide } from "react-toastify";
 
+
+export const spinnerContainerStyle = {height: '100%', width: '100%'};
+export const spinnerStyle = { height: '50px', widht: '50px' };
+
 export const historyTestData = [
     {
         day: 'hoy',

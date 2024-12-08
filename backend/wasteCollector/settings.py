@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 import os 
 import dj_database_url
 from decouple import config
@@ -27,10 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n+2*$i%1oze951wyxd9lw#b@6zt1!2!9wr_)xg!kh8rrf0io9+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+load_dotenv()
+
 IN_PROD = True if os.environ.get('PROD') == 'True' else False
 DEBUG = False if IN_PROD else True
 
-ALLOWED_HOSTS = ['.vercel.app', '10.0.0.16', '*'] # Allow internal network devices as hosts
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '10.0.0.16', '*', 'localhost'] # Allow internal network devices as hosts
 
 
 # Application definition
@@ -85,11 +88,6 @@ WSGI_APPLICATION = 'wasteCollector.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-        'default': dj_database_url.config(default="postgresql://postgres:ZgclFxpHBRuHnVqELUWWxyiFWXmaQxYF@junction.proxy.rlwy.net:44299/railway")
-}
-
-""""
 if IN_PROD:
     DATABASES = {
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
@@ -101,7 +99,6 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -137,7 +134,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

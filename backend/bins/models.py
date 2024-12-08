@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Bin(models.Model):
     fill_level = models.FloatField(default=0)
-    location = models.JSONField()
+    location = models.JSONField(unique=True)
     street = models.ForeignKey('Street', related_name='bins', on_delete=models.CASCADE)
 
     def __str__(self):

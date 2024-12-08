@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
+from django.db import IntegrityError
+from django.db.models import Q
+import re
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from datetime import datetime, timedelta
 
 import json
 
@@ -16,12 +20,14 @@ from .models import Bin, Route, Street, Zone
 def bin(request, id=None):
     if request.method == "POST":
         data = json.loads(request.body)
-        bin = Bin.create_bin(location=data["location"], street=data["street"], zone=data["zone"])
-        return Response(bin.serialize())
+        try:
+            bin = Bin.create_bin(location=data["location"], street=data["street"], zone=data["zone"])
+            return Response(bin.serialize())
+        except IntegrityError as err:
+            return HttpResponse(str(err), status=409)
     
     if request.method == "PUT":
         data = json.loads(request.body)
-        print(data)
         bin = Bin.objects.get(id=data["id"])
         for key in data.keys():
             if key == "street":
@@ -47,28 +53,42 @@ def bin(request, id=None):
     
     if request.method == "GET":
         page = request.GET.get('page', 1)
+        q = request.GET.get('q', '')
 
         if id:
             try:
                 bin = Bin.objects.get(id=id)
                 return Response(bin.serialize())
             except Bin.DoesNotExist:
-                return HttpResponse("Bin does not exist", status=401)
+                return HttpResponse("Bin does not exist", status=401)  
+        
+        per_page = request.GET.get('limit', 10)
+
+        if q:
+            # Check if query is referring to the fill level of the bin
+            if match := re.search(r"(\d{2}|\d{1}|\d{3})\%", q):
+                # Convert it to a number from 0 to 1 to be able to query it
+                q = float(match.group(1)) / 100
+
+            fields = ["street__zone__zone", "fill_level"]
             
-        if page:
-            per_page = request.GET.get('limit', 10)
-            bins = Paginator(Bin.objects.all().order_by('id'), per_page=per_page)
+            query = Q()
+            for field in fields:
+                query |= Q(**{f"{field}__icontains": q})
 
-            try:
-                bins = bins.page(page)
-            except EmptyPage:
-                # If the page is out of range, deliver the last page of results
-                bins = []
-            except PageNotAnInteger:
-                # If the page is not an integer, deliver the first page of results
-                bins = bins.page(1)
+        bins = Bin.objects.filter(query) if q else Bin.objects.all()
+        bins = Paginator(bins.order_by('id'), per_page=per_page)
 
-            return Response([bin.serialize() for bin in bins])
+        try:
+            bins = bins.page(page)
+        except EmptyPage:
+            # If the page is out of range, deliver an empty result
+            bins = []
+        except PageNotAnInteger:
+            # If the page is not an integer, deliver the first page of results
+            bins = bins.page(1)
+
+        return Response([bin.serialize() for bin in bins])
 
 
 @api_view(('GET', 'POST'))
@@ -103,6 +123,7 @@ def route(request, id=None):
         
     if request.method == "GET":
         page = request.GET.get('page', 1)
+        date = request.GET.get('date', '')
 
         if id:
             try:
@@ -110,18 +131,29 @@ def route(request, id=None):
                 return Response(route.serialize())
             except Route.DoesNotExist:
                 return HttpResponse("Route does not exist", status=401)
-        if page:
-            per_page = request.GET.get('limit', 10)
-            routes = Paginator(Route.objects.all(), per_page=per_page)
+        
+        if date:
+            # Convert the string to a datetime object
+            date = datetime.strptime(date, '%Y-%m-%d').date()
 
-            try:
-                routes = routes.page(page)
-            except EmptyPage:
-                routes = []
-            except PageNotAnInteger:
-                routes = routes.page(1)
+            # Get the start and end of the day to query the entire day (ignoring time)
+            start_of_day = datetime.combine(date, datetime.min.time())  # midnight
+            end_of_day = start_of_day + timedelta(days=1)  # one second after midnight
 
-            return Response([route.serialize() for route in routes])
+
+        per_page = request.GET.get('limit', 10)
+        routes = Route.objects.filter(date__gte=start_of_day, date__lte=end_of_day) if date else Route.objects.all()
+        routes = Paginator(routes.order_by('date'), per_page=per_page)
+
+
+        try:
+            routes = routes.page(page)
+        except EmptyPage:
+            routes = []
+        except PageNotAnInteger:
+            routes = routes.page(1)
+
+        return Response([route.serialize() for route in routes])
         
 
 @api_view(('GET',))
@@ -133,17 +165,23 @@ def get_route_bins(request):
         fill_level = float(fill_level)
     except ValueError:
         fill_level = 0.5
-    bins = Bin.objects.filter(fill_level__gte=fill_level)
+    bins = Bin.objects.filter(fill_level__gte=fill_level).order_by('id')
 
     page = request.GET.get('page', 1)
     per_page = request.GET.get('per_page', 100)
+    if per_page == 0:
+        return Response([])
+
+    print("per_page", per_page)
     bins = Paginator(bins, per_page=per_page)
 
     try:
         bins = bins.page(page)
     except EmptyPage:
-        bins = []
+        bins = bins.page(1)
     except PageNotAnInteger:
         bins = bins.page(1)
+    
+    print("length", len(bins))
 
     return Response([bin.serialize() for bin in bins])

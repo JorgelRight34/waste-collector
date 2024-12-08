@@ -1,4 +1,6 @@
 import api from "../api"
+import { toast } from "react-toastify"
+import { toastStyle } from "../utils/constants";
 
 const TakeRouteBtn = ({ className, bins, startingPoint, children, routes }) => {
     const handleClick = async () => {
@@ -17,6 +19,10 @@ const TakeRouteBtn = ({ className, bins, startingPoint, children, routes }) => {
             instructions: routes?.instructions,
             dayOfTheWeek: today
         })
+
+        if (response.status === 200) {
+            toast.success('Se ha tomado la ruta!', toastStyle);
+        }
     }
 
     return (

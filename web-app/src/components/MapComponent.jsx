@@ -5,7 +5,6 @@ import "leaflet-routing-machine";
 import RoutingControl from "./RoutingControl";
 import trashTruckIcon from "../assets/trash-truck.png"
 import Bin from "./Bin"
-import { useEffect, useState } from "react";
 
 const MapComponent = ({ 
     center, 

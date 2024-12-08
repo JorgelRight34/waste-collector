@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 
-from bins.models import Bin, Route
+from bins.models import Bin, Route, Zone, Street
 
 # Create your views here.
 @api_view(('GET',))
@@ -38,6 +38,22 @@ def bins(request):
         data[days[i]] = fill_level
 
     return Response(data)
+
+
+@api_view(('GET',))
+@permission_classes([AllowAny])
+def zones(request):
+    data = {}
+    for bin in Bin.objects.all():
+        zone = bin.street.zone.zone
+        if data.get(zone):
+            data[zone] += 1
+        else:
+            data[zone] = 1
+    
+    data = dict(sorted(data.items(), reverse=True)[:6])
+    return Response(data)
+    
 
 
 

@@ -16,15 +16,27 @@ const BinsRoute = ({ }) => {
     const [routes, setRoutes] = useState(null);
     const [minFillLevel, setMinFillLevel] = useState('');
     const [quantity, setQuantity] = useState('');
+    const [waypoints, setWaypoints] = useState([]);
     const [bins, setBins , , reload] = useFetchPage(
         '/get-route-bins/', 
         `&fill=${minFillLevel / 100}`, 
         true, 
-        quantity || 10
+        quantity || 10,
+        []
     );
     const location = useLocation(); // This gives you access to the current location
     const queryParams = new URLSearchParams(location.search);
     const embed = queryParams.get("embed"); 
+
+    useEffect(() => {
+        console.log("bins changed")
+        console.log(bins.length)
+        console.log(bins)
+        setWaypoints([
+            {lat: center[0], lng: center[1], label: 'Comienzo'},
+            ...bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id, ...bin})), 
+        ])
+    }, [bins])
 
     const chooseZone = (e) => {
         const zone = zones[e.target.value];
@@ -37,13 +49,10 @@ const BinsRoute = ({ }) => {
             <div className="row p-lg-3">
                 <div className="col-lg-8 p-3">
                     {/* {lat: 18.456, lng: -69.9500, label: '1'}, {lat: 18.4500, lng: -69.9400, label: '2'} */}
-                    {/* bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id})) */}
+                    {/* bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id})) */}       
                     <MapComponent 
                         center={center} 
-                        waypoints={[
-                            {lat: center[0], lng: center[1], label: 'Comienzo'},
-                            ...bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id, ...bin})), 
-                        ]}
+                        waypoints={waypoints}
                         setBins={setBins} 
                         routes={routes}
                         setRoutes={setRoutes}
@@ -123,10 +132,7 @@ const BinsRoute = ({ }) => {
                             </TakeRouteBtn>
                             <GoogleMapsBtn 
                                 className={"btn btn-outline-primary d-flex align-items-center justify-content-center"} 
-                                waypoints={[
-                                    {lat: center[0], lng: center[1], label: 'Comienzo'},
-                                    ...bins.map(bin => ({lat: bin.location.lat, lng: bin.location.lng, label: bin.id, ...bin})), 
-                                ]}
+                                waypoints={waypoints}
                             >
                                 <img className="me-1" src={googleMapsSVG} alt="Map Icon" width="24" height="24" />
                                 Abrir con Google Maps

@@ -42,8 +42,6 @@ const ProtectedRoute = ({ children }) => {
                 setIsAuthorized(false)
             }
         } catch (error) {
-            localStorage.removeItem('refreshToken')
-            localStorage.removeItem('accessToken')
             setIsAuthorized(false);
         }
     };
