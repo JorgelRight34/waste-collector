@@ -133,8 +133,12 @@ def route(request, id=None):
                 return HttpResponse("Route does not exist", status=401)
         
         if date:
-            # Convert the string to a datetime object
-            date = datetime.strptime(date, '%Y-%m-%d').date()
+            try:
+                # Convert the string to a datetime object
+                date = datetime.strptime(date, '%Y-%m-%d').date()
+            except ValueError:
+                print(date)
+                return HttpResponse(f"time {date} does not match format '%Y-%m-%d'", status=400)
 
             # Get the start and end of the day to query the entire day (ignoring time)
             start_of_day = datetime.combine(date, datetime.min.time())  # midnight

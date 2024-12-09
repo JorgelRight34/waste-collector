@@ -7,7 +7,7 @@ import MyWebView from "./MyWebView";
 import { webServerUrl } from "../utils/constants";
 
 
-const CollectionRoute = ({ route, className, height }) => {
+const CollectionRoute = ({ route, style, height }) => {
     const [isModalShowing, setIsModalShowing] = useState(false)
 
     const hideModal = () => {
@@ -17,14 +17,21 @@ const CollectionRoute = ({ route, className, height }) => {
     return (
         <>
             <View  
-                style={{ height: height, ...styles.container,  borderRadius: 10, ...styles.mb5 }}
+                style={{ 
+                    height: height, 
+                    ...styles.shadowSm, 
+                    ...styles.container,  
+                    borderRadius: 10, 
+                    ...styles.mb5,
+                    ...style 
+                }}
             >
                 <View style={{...styles.p2, ...styles.borderBottom}}>
                     <Text numberOfLines={1}>{route?.startingPoint?.name}</Text>
                 </View>
                 <View style={{...styles.p2, ...styles.borderBottom, width: '95%'}}>
                     <View style={{...styles.me3, flexDirection: 'row'}}>
-                        <FontAwesome icon="fa-solid fa-truck-front" size={25} color="black" />
+                        <FontAwesome icon="fa-solid fa-truck-front" size={25} color="red" />
                         <Text>{route.distance}m</Text>
                     </View>
                     <View style={{...styles.me3, flexDirection: 'row'}}>

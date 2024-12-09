@@ -68,6 +68,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center', 
     },
+    shadowSm: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 5,
+    },
     p1: {
         padding: 10
     },
