@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 url1 = 'http://192.168.4.122:8000/'
 url2 = 'http://10.0.0.17:8000/'
 
-url = url1
+url = 'http://10.11.0.133:8000/'
 
 const api = axios.create({
     baseURL: url

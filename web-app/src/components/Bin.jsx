@@ -37,7 +37,7 @@ const Bin = ({ bin, setBins, className, image=true }) => {
                                 <span className="material-symbols-outlined fs-6 hover me-3" onClick={deleteBin}>
                                     delete
                                 </span>
-                                <span class="material-symbols-outlined fs-6 hover" onClick={showDialog}>
+                                <span className="material-symbols-outlined fs-6 hover" onClick={showDialog}>
                                     edit
                                 </span>
                             </div>

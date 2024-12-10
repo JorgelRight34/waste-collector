@@ -98,6 +98,12 @@ def route(request, id=None):
         data = json.loads(request.body)
         try:
             bins = [Bin.objects.get(id=bin["id"]) for bin in data["bins"]]
+            for bin in bins:
+                bin.fill_level = 0
+                bin.save()
+
+            print("--")
+
             route = Route.objects.create( 
                 instructions=data["instructions"], 
                 starting_point=data["startingPoint"],
@@ -164,6 +170,8 @@ def route(request, id=None):
 @permission_classes([AllowAny])
 def get_route_bins(request):
     fill_level = request.GET.get('fill', 0.5)
+    if fill_level == "0":
+        fill_level = 0.5
 
     try:
         fill_level = float(fill_level)

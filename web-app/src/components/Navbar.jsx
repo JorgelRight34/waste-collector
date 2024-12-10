@@ -13,7 +13,7 @@ const Navbar = ({ }) => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary p-0">
             <div className="container-fluid bg-white p-2 shadow-sm">
                 <a className="navbar-brand" onClick={() => navigate('/')}>
-                    Recolector
+                    Recolector De Residuos
                 </a>
                 <button 
                     className="navbar-toggler" 

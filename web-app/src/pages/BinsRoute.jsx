@@ -92,7 +92,7 @@ const BinsRoute = ({ }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="d-flex align-items-center mb-2">
+                            <div className="d-flex d-none align-items-center mb-2">
                                 <select
                                     className="form-control" 
                                     name="zone" 

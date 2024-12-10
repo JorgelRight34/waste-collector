@@ -7,7 +7,7 @@ import Bin from "../Bin";
 
 const SearchBinsForm = ({ title }) => {
     const [query, setQuery] = useState('');
-    const [bins, setBins, setPage] = useFetchPage("/bins/", `&q=${query}`, true);
+    const [bins, setBins, setPage] = useFetchPage("/bins/", `&q=${query}`);
     const queryInputRef = useRef(null);
 
     const renderOptions = () => {

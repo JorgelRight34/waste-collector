@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 
 const DEV = "http://127.0.0.1:8000/";
 const DEV1 = `http://10.0.0.17:8000/`;
-const DEV3 = "http://192.168.4.122:8000/";
+const DEV3 = "http://10.11.0.133:8000/";
 const PROD =
   "https://waste-collector-backend-7wttsirfr-jorgelright34s-projects.vercel.app/";
 

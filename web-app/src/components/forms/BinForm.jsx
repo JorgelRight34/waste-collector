@@ -5,11 +5,12 @@ import { zones } from "../../utils/constants";
 
 const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
     const streetInputRef = useRef(null);
+    const binFormRef = useRef(null);
 
     const handleGenerateRandomLocation = () => {
         const {lat, lng} = generateRandomLocation(formData.zone);
         setFormData(prev => ({...prev, lat: lat, lng: lng}));
-        getStreet();
+        getStreet(lat, lng);
     }
 
     const handleSelectZone = (event) => {
@@ -18,10 +19,7 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
         setFormData(prev => ({...prev, street: ''}))
     }
 
-    const getStreet = async () => {
-        const lat = formData.lat;
-        const lon = formData.lng;
-
+    const getStreet = async (lat, lon) => {
         if (!lat || !lon) {
             return
         }
@@ -40,7 +38,14 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="p-3">
+        <form 
+            onSubmit={(event) => {
+                binFormRef.current.reset()
+                handleSubmit(event);
+            }} 
+            className="p-3"
+            ref={binFormRef}
+        >
             {/* First Row */}
             <div className="row d-flex flex-column justify-content-center px-3 mb-2">
                 <label htmlFor="zone" className="form-label"> 
@@ -61,7 +66,7 @@ const BinForm = ({ formData, setFormData, handleSubmit, handleChange }) => {
             {/* Second row */}
             <div className="row form-group mb-2">
                 <div className="col-6 d-flex flex-column px-3">
-                    <label htmlhtmlFor="lat" className="form-label">
+                    <label htmlFor="lat" className="form-label">
                         Latitud
                     </label>
                     <input 

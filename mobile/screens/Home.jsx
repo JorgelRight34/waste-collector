@@ -38,7 +38,7 @@ const Home = ({ navigation }) => {
                     >
                         <FontAwesome icon="facebook" size={25} color="white" />
                         <Text style={styles.whiteText}>
-                            Estado de Zafacanes
+                            Estado de Zafacones
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity 

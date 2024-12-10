@@ -7,7 +7,7 @@ import CollectionRoute from "../CollectionRoute";
 
 const SearchRoutesForm = ({ title }) => {
     const [date, setDate] = useState('');
-    const [routes, setRoutes, setPage] = useFetchPage("/routes/", `&date=${date}`, true);
+    const [routes, setRoutes, setPage] = useFetchPage("/routes/", `&date=${date}`);
     const dateInputRef = useRef(null);
 
     const renderOptions = () => {

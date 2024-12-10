@@ -1,1 +1,1 @@
-export const webServerUrl = `http://192.168.4.122:5173`;
+export const webServerUrl = `http://10.11.0.133:5173`;

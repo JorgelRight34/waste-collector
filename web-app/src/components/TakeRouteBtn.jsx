@@ -5,8 +5,7 @@ import { toastStyle } from "../utils/constants";
 const TakeRouteBtn = ({ className, bins, startingPoint, children, routes }) => {
     const handleClick = async () => {
         let today = new Date;
-        today = 2
-        console.log("today", today)
+        today = today.getDay()
 
         const response = await api.post('/routes/', {
             bins: bins,
@@ -22,6 +21,7 @@ const TakeRouteBtn = ({ className, bins, startingPoint, children, routes }) => {
 
         if (response.status === 200) {
             toast.success('Se ha tomado la ruta!', toastStyle);
+            location.reload();
         }
     }
 
