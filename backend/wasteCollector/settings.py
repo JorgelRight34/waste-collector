@@ -146,6 +146,24 @@ AUTH_USER_MODEL = 'accounts.User'
 CORS_ALLOW_ALL_ORIGINS = True   # Allow any other domain to make requests to this server
 CORS_ALLOW_CREDENTIALS = True   # Allows credentials (such as cookies, HTTP authentication, and client certificates) 
                                 # to be included in cross-origin requests
+                                
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "x-csrf-token",
+    "access-control-allow-origin",
+    "access-control-allow-methods",
+    "access-control-allow-headers",
+]
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "OPTIONS",
+    "PATCH",
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
